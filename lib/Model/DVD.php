@@ -1,3 +1,4 @@
+<?php
 // lib/Model/Customer.php
  
 // lib/Model/DVD.php

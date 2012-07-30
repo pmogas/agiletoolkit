@@ -1,3 +1,4 @@
+<?php
 class Model_Movie extends Model_Table {
   public $table='movie';
   function init(){
