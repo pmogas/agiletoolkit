@@ -55,22 +55,40 @@ $contact_form->addButton('Cancel');
         ->alert('Stop');
         $page->add('MyButton');
       
-$col=$page->add('Columns');
-$left=$col->addColumn(2)->add('View_SlotMachine');
-$right=$col->addColumn(2)->add('View_SlotMachine');
+      $col=$page->add('Columns');
+      $left=$col->addColumn(2)->add('View_SlotMachine');
+      $right=$col->addColumn(2)->add('View_SlotMachine');
+      
+      $page->add('Button')->setLabel('Pull')
+          ->js('click', $col->js()->reload());    
+      
+      $grid=$page->add('Grid');
+      $grid->setModel('Item');
 
-$page->add('Button')->setLabel('Pull')
-    ->js('click', $col->js()->reload());    
+      $grid=$page->add('Grid');
+      $grid->setModel('Order');
 
-$grid=$page->add('Grid');
-$grid->setModel('Item');
- 
-$form = $page->add('Form');
-$form->setModel('Order_Completed');
-$form->addSubmit();
-if($form->isSubmitted()){
-  $form->update();
-  $form->js(null,$page->js()->reload())->univ()->successMessage('Order added')->execute();
-}  
+      $col=$page->add('Columns');
+      $form=$col->addColumn(3)->add('Form');
+
+      $form->setModel('Order_Completed');
+      $form->addSubmit();
+      if($form->isSubmitted()){
+        $form->update();
+        $form->js(null,$page->js()->reload())->univ()->successMessage('Order added')->execute();
+      }
+      $tabs = $page->add('Tabs');
+      $tabs->addTab('Item')->add('CRUD')->setModel('Item');
+      $tabs->addTab('Order')->add('CRUD')->setModel('Order');
+      $tabs->addTab('Discounted')->add('CRUD')->setModel('Item_Discounted');
+      $tabs->addTab('Completed')->add('CRUD')->setModel('Order_Completed'); 
+      
+       
+$tabs = $page->add('Tabs');
+$tabs->addTab('Customers')->add('CRUD')->setModel('Customer');
+$tabs->addTab('Movies')->add('CRUD')->setModel('Movie');
+$tabs->addTab('DVDs')->add('CRUD')->setModel('DVD');
+$tabs->addTab('Rentals')->add('CRUD')->setModel('Rental');
+
     }
 }
